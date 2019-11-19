@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import cz.ackee.clu.architecture.model.repository.State
-import cz.ackee.clu.architecture.model.repository.ad.Ad
+import cz.ackee.clu.architecture.screens.ad.epoxy.AdsController
 import cz.ackee.clu.architecture.screens.base.fragment.BaseFragment
 import cz.ackee.extensions.rx.observeOnMainThread
 import io.reactivex.rxkotlin.plusAssign
@@ -17,10 +17,15 @@ class AdsFragment : BaseFragment<AdsLayout>() {
 
     private val viewModel: AdsViewModel by viewModel()
 
+    private val adsController = AdsController()
+
     override fun createLayout(parent: Context) = AdsLayout(parent)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        layout.epoxyRecycler.setController(adsController)
+
         disposables += viewModel.observeAdsState()
             .observeOnMainThread()
             .subscribe {
@@ -37,8 +42,8 @@ class AdsFragment : BaseFragment<AdsLayout>() {
         // display/hide loading
     }
 
-    private fun onSuccess(ads: List<Ad>) {
-        // display data
+    private fun onSuccess(ads: List<AdsWithTitle>) {
+        adsController.setData(ads)
     }
 
     private fun onError(e: Throwable) {

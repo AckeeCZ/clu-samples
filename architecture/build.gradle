@@ -65,4 +65,7 @@ dependencies {
     implementation "org.koin:koin-android:2.0.1"
     implementation "org.koin:koin-androidx-scope:2.0.1"
     implementation "org.koin:koin-androidx-viewmodel:2.0.1"
+
+    implementation "com.airbnb.android:epoxy:3.8.0"
+    kapt "com.airbnb.android:epoxy-processor:3.8.0"
 }
