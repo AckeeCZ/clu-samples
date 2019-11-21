@@ -1,2 +1,2 @@
-include ':app', ':architecture'
+include ':app', ':architecture', ':api'
 rootProject.name='clu-samples'
